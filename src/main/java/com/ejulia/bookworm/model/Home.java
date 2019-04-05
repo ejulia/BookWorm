@@ -1,13 +1,9 @@
 package com.ejulia.bookworm.model;
 
 public class Home {
-    private final String welcomeMessage;
+    private final String welcomeTemplate = "Welcome to BookWorm %s!";
 
-    public Home(String welcomeMessage) {
-        this.welcomeMessage = welcomeMessage;
-    }
-
-    public String getWelcomeMessage() {
-        return welcomeMessage;
+    public String getWelcomeMessage(String userName) {
+        return String.format(welcomeTemplate, userName);
     }
 }

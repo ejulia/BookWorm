@@ -14,19 +14,23 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void createUser(String name, String email) {
-
+    public String createUser(String firstName, String lastName, String phone, String email) {
         User n = new User();
-        n.setName(name);
+        n.setFirstName(firstName);
+        n.setLastName(lastName);
+        n.setPhone(phone);
         n.setEmail(email);
-
-        // TODO : eg I will check there is not already a user registered with this email in our database
-
+        // TODO_suggestion : eg I will check there is not already a user registered with this email in our database
         userRepository.save(n);
+        return "User registered";
+    }
+
+    public String deleteUser(Integer id)  {
+        userRepository.deleteById(id);
+        return "User deleted";
     }
 
     public List<User> displayAllUsers() {
-
         return userRepository.findAll();
     }
 
