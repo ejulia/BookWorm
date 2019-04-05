@@ -25,12 +25,12 @@ public class UserService {
         return "User registered";
     }
 
-    public String deleteUser(Integer id)  {
-        userRepository.deleteById(id);
+    public String deleteUser(Integer userId)  {
+        userRepository.deleteById(userId);
         return "User deleted";
     }
 
-    public List<User> displayAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 

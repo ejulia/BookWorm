@@ -15,21 +15,21 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(path = "/add") //Map ONLY GET Requests, adress "/demo/add"
-    public String addUser(@RequestParam String firstName, @RequestParam String lastName,@RequestParam String phone, @RequestParam String email) {
+    public String addUser(@RequestParam(defaultValue="") String firstName, @RequestParam(defaultValue="") String lastName,
+            @RequestParam(defaultValue="") String phone, @RequestParam(defaultValue="") String email) {
     //@RequestParam means it's a parameter form the GET or POST request
         // TODO_suggestion : check input fields
         return userService.createUser(firstName, lastName, phone, email);
     }
 
     @GetMapping(path = "/delete")
-    public String deleteUser(@RequestParam Integer id) {
-        return userService.deleteUser(id);
+    public String deleteUser(@RequestParam Integer userId) {
+        return userService.deleteUser(userId);
     }
 
     @GetMapping(path = "/all")
     public List<User> getAllUsers() {
         //Returns a JSON or XML with the users
-        return userService.displayAllUsers();
+        return userService.getAllUsers();
     }
-
 }
