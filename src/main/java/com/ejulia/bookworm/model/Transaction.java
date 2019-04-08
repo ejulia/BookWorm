@@ -24,6 +24,14 @@ public class Transaction {
     private LocalDateTime rentTime;
     private LocalDateTime returnTime;
 
+    public Long getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
+    }
+
     public User getUser() {
         return user;
     }

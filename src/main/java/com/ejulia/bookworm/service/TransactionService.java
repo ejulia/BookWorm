@@ -59,5 +59,9 @@ public class TransactionService {
         return transactionRepository.findByBook_BookId(bookId);
     }
 
+    public List<Transaction> getUserTransactions(Integer userId) {
+        return transactionRepository.findByUser_UserId(userId);
+    }
     public List<Transaction> getAllTransactions() { return transactionRepository.findAll(); }
+
 }

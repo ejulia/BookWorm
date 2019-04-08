@@ -32,6 +32,11 @@ public class TransactionController {
         return transactionService.getBookTransactions(bookId);
     }
 
+    @GetMapping(path = "/user")
+    public List<Transaction> getUserTransactions(@RequestParam Integer userId) {
+        return transactionService.getUserTransactions(userId);
+    }
+
     @GetMapping(path = "/all")
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();

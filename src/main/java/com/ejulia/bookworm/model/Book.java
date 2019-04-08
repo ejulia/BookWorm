@@ -10,7 +10,6 @@ public class Book {
     To fix it, use @GeneratedValue(generator = "increment") or @GenericGenerator(name="increment", strategy = "increment")
  */
     @Id
-    // Pas de @GeneratedValue ici car l'incrémentation est définie par @MapsId (qui indique qu'on utilise l'ID comme clé étrangère ailleurs dans le code
     @GeneratedValue (generator = "increment")
     private Integer bookId;
 
@@ -21,6 +20,14 @@ public class Book {
     // Tells JPA where to find the @ManyToOne configuration defined in Transaction
     @OneToMany(mappedBy = "book")
     Set<Transaction> transactionSet;
+
+    public Integer getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
+    }
 
     public String getTitle() {
         return title;
