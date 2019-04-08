@@ -1,27 +1,26 @@
 package com.ejulia.bookworm.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Book {
+/*
+    Using below @GeneratedValue(strategy= GenerationType.AUTO) leads to having same incrementation in several tabs.
+    To fix it, use @GeneratedValue(generator = "increment") or @GenericGenerator(name="increment", strategy = "increment")
+ */
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    // Pas de @GeneratedValue ici car l'incrémentation est définie par @MapsId (qui indique qu'on utilise l'ID comme clé étrangère ailleurs dans le code
+    @GeneratedValue (generator = "increment")
     private Integer bookId;
 
     private String title;
     private String author;
     private String isbn;
 
-    public Integer getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Integer bookId) {
-        this.bookId = bookId;
-    }
+    // Tells JPA where to find the @ManyToOne configuration defined in Transaction
+    @OneToMany(mappedBy = "book")
+    Set<Transaction> transactionSet;
 
     public String getTitle() {
         return title;

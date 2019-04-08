@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController     //Means the following class is a controller
 @RequestMapping(path = "/users")      //Means URL start with /demo (after Application path)
@@ -19,7 +20,7 @@ public class UserController {
             @RequestParam(defaultValue="") String phone, @RequestParam(defaultValue="") String email) {
     //@RequestParam means it's a parameter form the GET or POST request
         // TODO_suggestion : check input fields
-        return userService.createUser(firstName, lastName, phone, email);
+        return userService.addUser(firstName, lastName, phone, email);
     }
 
     @GetMapping(path = "/delete")
@@ -31,5 +32,10 @@ public class UserController {
     public List<User> getAllUsers() {
         //Returns a JSON or XML with the users
         return userService.getAllUsers();
+    }
+
+    @GetMapping(path = "/example")
+    public Optional<User> getUser(@RequestParam Integer userId) {
+        return userService.getUser(userId);
     }
 }

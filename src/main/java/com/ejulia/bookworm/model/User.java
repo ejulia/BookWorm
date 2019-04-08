@@ -1,20 +1,24 @@
 package com.ejulia.bookworm.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity //Tells Hibernate to make a table out of this class
 public class User {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(generator = "increment")
     private Integer userId;
 
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
+
+    // Defines a set which will contains all the transactions related to the instantiated user
+    // Tells JPA where to find the @ManyToOne configuration defined in Transaction
+    @OneToMany(mappedBy = "user")
+    private Set<Transaction> transactionSet;
 
     public Integer getUserId() {
         return userId;

@@ -18,7 +18,7 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping(path= "/add")
-    public String addBook(@RequestParam String title, @RequestParam String author, @RequestParam String isbn) {
+    public String addBook(@RequestParam String title, @RequestParam String author, @RequestParam(defaultValue="") String isbn) {
         return bookService.addBook(title, author, isbn);
     }
 
