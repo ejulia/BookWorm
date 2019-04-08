@@ -1,0 +1,64 @@
+######## DOC : CREATION D'UNE BASE DE DONNEES DANS UN CONTENEUR DOCKER ########
+
+Attention : un conteneur Docker n'est pas persistant. La base de données sera donc perdu dès la fermeture du conteneur ou de la session Linux.
+
+Ressources : - Déploiement de l'environnement de travail BSS, Sigfox (partie I-1)
+	     - Cours ProDocker
+             - Instructions Docker : https://docs.docker.com/engine/reference/commandline/rm/
+
+###I- CREATION D'UNE BASE DE DONNEES
+
+#1- Installation de Docker
+---
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get install docker-ce
+sudo docker run hello-world
+sudo usermod –a –G docker <user>
+---
+
+
+#2- Etapes de création du serveur MySQL [cours ProDocker]
+> Chargement de l'image Docker mysql
+> Création d'un serveur MySQL
+- Modifier l'arborescence de stockage des données vers /mysql/data
+- Création du conteneur avec le serveur : sudo docker run...
+					  Ajouter le paramètre --rm pour un remove dès l'exit
+- Afficher les conteeurs créés : sudo docker ps (ajouter -a pour voir les conteneurs stopped)
+- Identifier l'IP du conteneur : sudo docker inspect <nom/id> (info devant IPAddress)
+> Passage en CLI (console line interface) MySQL :
+
+
+#3- Instructions Docker :
+- Afficher tous les containers actifs : sudo docker ps
+- Afficher tous les containers : sudo docker ps -a
+- Démarrer un container arrêté : sudo docker start <nom/idContainer>
+- Création d'un terminal actif dans le conteneur : sudo docker exec -it <nom/idContainer> bash
+- Ouverture du Shell MySQL : mysql
+- (sortie du bash : exit)
+- Arrêter un container : sudo docker stop <nom/id>
+- Supprimer un container arrêté (si on n'a pas utilisé l'option --rm à la création) : sudo docker rm <nom/id>
+- 
+
+
+#3- Instructions MySQL :
+- Sortir du shell : EXIT
+- Afficher les databases du serveur : SHOW DATABASES;
+- Afficher la database ouverte : SELECT DATABASE();
+- 
+- Changer de database active : USE <nom>;
+- Créer une database : CREATE DATABASE <nom>;
+- Supprimer une database : DROP DATABASE <nom>;
+- Afficher les users : SELECT User, Host FROM mysql.users;
+- Afficher les privilèges d'un utilisateur : SHOW GRANTS FOR '<nom>'@'<host>'
+- Give all privileges on a database to a usre : GRANT ALL PRIVILEGES ON <databaseName>.* TO '<userName>'@'<host>';
+- Revoke all privileges on a database to a usre : REVOKE ALL PRIVILEGES ON <databaseName>.* TO '<userName>'@'<host>';
+- Mettre à jour les privilèges utilisateurs après modification : FLUSH PRIVILEGES;
+- Supprimer un utilisateur : DROP USER <nom>@<host>;
+- Show all tables in one database : SHOW TABLES;
+- Show columns and columns information from a table : SHOW COLUMNS FORM <tableName>;
+
+
