@@ -1,12 +1,11 @@
 package com.ejulia.bookworm.controller;
 
-import com.ejulia.bookworm.model.User;
+import com.ejulia.bookworm.entity.User;
 import com.ejulia.bookworm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController     //Means the following class is a controller
 @RequestMapping(path = "/users")      //Means URL start with /demo (after Application path)

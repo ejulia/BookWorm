@@ -1,4 +1,4 @@
-package com.ejulia.bookworm.model;
+package com.ejulia.bookworm.entity;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,10 +15,10 @@ public class User {
     private String email;
     private String phone;
 
-    // Defines a set which will contains all the transactions related to the instantiated user
-    // Tells JPA where to find the @ManyToOne configuration defined in Transaction
+    // Defines a set which will contains all the loans related to the instantiated user
+    // Tells JPA where to find the @ManyToOne configuration defined in Loan
     @OneToMany(mappedBy = "user")
-    private Set<Transaction> transactionSet;
+    private Set<Loan> loanSet;
 
     public Integer getUserId() {
         return userId;

@@ -1,17 +1,14 @@
-package com.ejulia.bookworm.model;
-
-import com.ejulia.bookworm.dao.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.ejulia.bookworm.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class Transaction {
+public class Loan {
 
     @Id
     @GeneratedValue(generator = "increment")
-    private Long transactionId;
+    private Long loanId;
 
     @ManyToOne
     @JoinColumn(name = "user")
@@ -24,12 +21,12 @@ public class Transaction {
     private LocalDateTime rentTime;
     private LocalDateTime returnTime;
 
-    public Long getTransactionId() {
-        return transactionId;
+    public Long getLoanId() {
+        return loanId;
     }
 
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
+    public void setLoanId(Long loanId) {
+        this.loanId = loanId;
     }
 
     public User getUser() {

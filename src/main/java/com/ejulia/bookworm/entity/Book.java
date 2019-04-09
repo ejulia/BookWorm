@@ -1,4 +1,4 @@
-package com.ejulia.bookworm.model;
+package com.ejulia.bookworm.entity;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,10 +16,13 @@ public class Book {
     private String title;
     private String author;
     private String isbn;
-
-    // Tells JPA where to find the @ManyToOne configuration defined in Transaction
+    /*
+    Normally this set should be part of Book object (and so on for Loan). But then we need DTOs as an interface between BackEnd and
+    FrontEnd to prevent Book and Loan to call each other infinitely (stackoverflow error).
+     */
+    // Tells JPA where to find the @ManyToOne configuration defined in Loan
     @OneToMany(mappedBy = "book")
-    Set<Transaction> transactionSet;
+    Set<Loan> loanSet;
 
     public Integer getBookId() {
         return bookId;
@@ -52,4 +55,13 @@ public class Book {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
+/*  ATTENTION : CE BLOC AVAIT ETE CODE POUR LEVER UNE ERREUR (ABSENCE DE TRANSACTIONS AVEC LA DATABASE) MAIS S'IL EST DANS LE CODE IL PROVOQUE DES STACKOVERFLOW
+    public Set<Loan> getLoanSet() {
+        return loanSet;
+    }
+
+    public void setLoanSet(Set<Loan> loanSet) {
+        this.loanSet = loanSet;
+    }*/
 }

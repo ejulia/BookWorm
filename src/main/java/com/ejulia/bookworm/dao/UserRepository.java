@@ -1,6 +1,6 @@
 package com.ejulia.bookworm.dao;
 
-import com.ejulia.bookworm.model.User;
+import com.ejulia.bookworm.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

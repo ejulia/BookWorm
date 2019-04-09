@@ -1,7 +1,6 @@
 package com.ejulia.bookworm.dao;
 
-import com.ejulia.bookworm.model.Book;
-import org.springframework.data.jpa.repository.Query;
+import com.ejulia.bookworm.entity.Book;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

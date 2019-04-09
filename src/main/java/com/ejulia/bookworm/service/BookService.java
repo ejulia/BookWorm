@@ -1,12 +1,11 @@
 package com.ejulia.bookworm.service;
 
-import com.ejulia.bookworm.model.Book;
+import com.ejulia.bookworm.entity.Book;
 import com.ejulia.bookworm.dao.BookRepository;
-import com.ejulia.bookworm.model.Transaction;
+import com.ejulia.bookworm.entity.Loan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,7 +16,7 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
     @Autowired
-    private TransactionService transactionService;
+    private LoanService loanService;
 
     public String addBook(String title, String author, String isbn) {
         Book book = new Book();
@@ -50,17 +49,17 @@ public class BookService {
     }
 
     public List<Book> getRentedBooks(Integer userId) {
-        List<Transaction> transactionList = transactionService.getUserCurrentTransactions(userId);
+        List<Loan> loanList = loanService.getUserCurrentLoans(userId);
         // map = ce que je vais faire : je mets get book dans le stream
         // Collect permet de récupérer le contenu du stream au fur et à mesure
-        return transactionList.stream().map(Transaction::getBook).collect(Collectors.toList());
+        return loanList.stream().map(Loan::getBook).collect(Collectors.toList());
     }
 
     public List<Book> getAvailableBooks() {
 
         List<Book> allBooks = bookRepository.findAll();
-        List<Transaction> currentTransactions = transactionService.getCurrentTransactions();
-        List<Book> rentedBooks = currentTransactions.stream().map(Transaction::getBook).collect(Collectors.toList());
+        List<Loan> currentLoans = loanService.getCurrentLoans();
+        List<Book> rentedBooks = currentLoans.stream().map(Loan::getBook).collect(Collectors.toList());
         return allBooks.stream().filter(book -> !rentedBooks.contains(book)).collect(Collectors.toList());
     }
 

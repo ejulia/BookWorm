@@ -1,6 +1,7 @@
 package com.ejulia.bookworm.controller;
 
-import com.ejulia.bookworm.model.Book;
+import com.ejulia.bookworm.entity.Book;
+import com.ejulia.bookworm.entity.Loan;
 import com.ejulia.bookworm.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path= "/books")
@@ -35,11 +37,13 @@ public class BookController {
     @GetMapping(path= "/edit")
     public String editBook(@RequestParam Integer bookId, @RequestParam(required=false) String title, @RequestParam(required=false) String author, @RequestParam(required=false) String isbn)
             throws Exception {
-        if(title!=null) { bookService.editBookTitle(bookId, title); }
-        if(author!=null) { bookService.editBookAuthor(bookId, author); }
-        if(isbn!=null) { bookService.editBookIsbn(bookId, isbn); }
+        if(!title.isEmpty()) { bookService.editBookTitle(bookId, title); }
+        if(author!="") { bookService.editBookAuthor(bookId, author); }
+        if(isbn!="") { bookService.editBookIsbn(bookId, isbn); }
         return "Book edited";
     }
+
+    //Proposition meilleure méthode
 
     @GetMapping(path= "/delete")
     public String deleteBook(@RequestParam Integer bookId) {
@@ -48,7 +52,7 @@ public class BookController {
 
      @GetMapping(path = "/all")
     public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+       return bookService.getAllBooks();
      }
 
      @GetMapping(path = "/available")
