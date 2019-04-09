@@ -28,6 +28,16 @@ public class UserController {
         return userService.deleteUser(userId);
     }
 
+    @GetMapping(path= "/find", params="firstName")
+    public List<User> getByFirstName(@RequestParam String firstName) {
+        return userService.getByFirstName(firstName);
+    }
+
+    @GetMapping(path= "/find", params="lastName")
+    public List<User> getByLastName(@RequestParam String lastName) {
+        return userService.getByLastName(lastName);
+    }
+
     @GetMapping(path = "/all")
     public List<User> getAllUsers() {
         //Returns a JSON or XML with the users

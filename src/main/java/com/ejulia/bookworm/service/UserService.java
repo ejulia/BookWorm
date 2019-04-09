@@ -40,4 +40,11 @@ public class UserService {
     }
 
 
+    public List<User> getByFirstName(String firstName) {
+        return userRepository.findByFirstNameContaining(firstName);
+    }
+
+    public List<User> getByLastName(String lastName) {
+        return userRepository.findByLastNameContaining(lastName);
+    }
 }

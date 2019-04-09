@@ -13,4 +13,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     // On redéfinie dans l'interface findAll() pour dire à JPA qu'on veut qu'elle retourne une liste et pas un iterable
     List<User> findAll();
+
+    List<User> findByFirstNameContaining(String firstName);
+    List<User> findByLastNameContaining(String lastName);
 }
