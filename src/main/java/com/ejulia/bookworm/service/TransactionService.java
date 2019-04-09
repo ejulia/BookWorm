@@ -20,24 +20,41 @@ public class TransactionService {
     @Autowired
     private BookService bookService;
 
+    private int maxRentedBooks = 3;
+
     public String rentBook(Integer bookId, Integer userId) throws Exception {
 
-        Transaction transaction = new Transaction();
+        String returnStatement = "Rental not allowed";
 
-        Optional<User> optionalUser = userService.getUser(userId);
-        // Define user as userOpt if it exists, else throw indicated exception
-        User user = optionalUser.orElseThrow(() -> new Exception("User not found in transaction creation"));
-        transaction.setUser(user);
+        if (isAllowedRent(userId)) {
 
-        Optional<Book> optionalBook = bookService.getBook(bookId);
-        Book book = optionalBook.orElseThrow(() -> new Exception("Book not found in transaction creation"));
-        transaction.setBook(book);
+            Transaction transaction = new Transaction();
 
-        transaction.setRentTimeNow();
+            Optional<User> optionalUser = userService.getUser(userId);
+            // Define user as userOpt if it exists, else throw indicated exception
+            User user = optionalUser.orElseThrow(() -> new Exception("User not found in transaction creation"));
+            transaction.setUser(user);
 
-        transactionRepository.save(transaction);
+            Optional<Book> optionalBook = bookService.getBook(bookId);
+            Book book = optionalBook.orElseThrow(() -> new Exception("Book not found in transaction creation"));
+            transaction.setBook(book);
 
-        return "Book rented";
+            transaction.setRentTimeNow();
+
+            transactionRepository.save(transaction);
+
+            returnStatement = "Book rented";
+        }
+        return returnStatement;
+    }
+
+    private boolean isAllowedRent(Integer userId) {
+        boolean rentalAllowed = true;
+        List<Transaction> transactionList = getUserCurrentTransactions(userId);
+        if (transactionList.size() >= maxRentedBooks) {
+            rentalAllowed = false;
+        }
+        return rentalAllowed;
     }
 
     public String returnBook(Integer bookId) {
@@ -62,6 +79,17 @@ public class TransactionService {
     public List<Transaction> getUserTransactions(Integer userId) {
         return transactionRepository.findByUser_UserId(userId);
     }
-    public List<Transaction> getAllTransactions() { return transactionRepository.findAll(); }
+
+    public List<Transaction> getUserCurrentTransactions(Integer userId) {
+        return transactionRepository.findByUser_UserIdAndReturnTimeIsNull(userId);
+    }
+
+    public List<Transaction> getCurrentTransactions() {
+        return transactionRepository.findByReturnTimeIsNull();
+    }
+
+    public List<Transaction> getAllTransactions() {
+        return transactionRepository.findAll();
+    }
 
 }

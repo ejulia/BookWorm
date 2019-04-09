@@ -37,6 +37,12 @@ public class TransactionController {
         return transactionService.getUserTransactions(userId);
     }
 
+    //AUTRE APPROCHE POSSIBLE : METTRE LE PARAMETRE DANS L'URI
+    @GetMapping(path = "/rented")
+    public List<Transaction> getUserCurrentTransactions(@RequestParam Integer userId) {
+        return transactionService.getUserCurrentTransactions(userId);
+    }
+
     @GetMapping(path = "/all")
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();

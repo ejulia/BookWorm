@@ -44,8 +44,13 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping(path = "/example")
-    public Optional<User> getUser(@RequestParam Integer userId) {
-        return userService.getUser(userId);
+    @GetMapping(path = "/edit")
+    public String editUser(@RequestParam Integer userId, @RequestParam(required=false) String firstName, @RequestParam(required=false) String lastName,
+            @RequestParam(required=false) String phone, @RequestParam(required=false) String email) throws Exception {
+        if (firstName!="") { userService.editUserFirstName(userId, firstName); }
+        if (lastName!="") { userService.editUserLastName(userId, lastName); }
+        if (phone!="") { userService.editUserPhone(userId, phone); }
+        if (email!="") { userService.editUserEmail(userId, email); }
+        return "User edited";
     }
 }

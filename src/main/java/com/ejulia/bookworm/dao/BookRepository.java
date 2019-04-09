@@ -9,9 +9,6 @@ import java.util.List;
 public interface BookRepository extends CrudRepository<Book, Integer> {
     //Redefine findAll() output from Iterable to List :
     List<Book> findAll();
-
-//    List<Book> findByTitle(String title);
     List<Book> findByTitleContaining(String title);
-
     List<Book> findByAuthorContaining(String author);
 }

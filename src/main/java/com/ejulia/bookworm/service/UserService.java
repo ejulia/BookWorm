@@ -47,4 +47,32 @@ public class UserService {
     public List<User> getByLastName(String lastName) {
         return userRepository.findByLastNameContaining(lastName);
     }
+
+    public void editUserFirstName(Integer userId, String firstName) throws Exception {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        User user = optionalUser.orElseThrow(() -> new Exception("User not found"));
+        user.setFirstName(firstName);
+        userRepository.save(user);
+    }
+
+    public void editUserLastName(Integer userId, String lastName) throws Exception {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        User user = optionalUser.orElseThrow(() -> new Exception("User not found"));
+        user.setLastName(lastName);
+        userRepository.save(user);
+    }
+
+    public void editUserPhone(Integer userId, String phone) throws Exception {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        User user = optionalUser.orElseThrow(() -> new Exception("User not found"));
+        user.setPhone(phone);
+        userRepository.save(user);
+    }
+
+    public void editUserEmail(Integer userId, String email) throws Exception {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        User user = optionalUser.orElseThrow(() -> new Exception("User not found"));
+        user.setEmail(email);
+        userRepository.save(user);
+    }
 }

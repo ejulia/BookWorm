@@ -10,4 +10,8 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
     List<Transaction> findByBook_BookId(Integer bookId);
     Transaction findFirstByBook_BookIdOrderByRentTimeDesc(Integer bookId);
     List<Transaction> findByUser_UserId(Integer userId);
+
+    List<Transaction> findByUser_UserIdAndReturnTimeIsNull(Integer userId);
+
+    List<Transaction> findByReturnTimeIsNull();
 }

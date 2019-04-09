@@ -3,14 +3,12 @@ package com.ejulia.bookworm.controller;
 import com.ejulia.bookworm.model.Book;
 import com.ejulia.bookworm.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.influx.InfluxDbOkHttpClientBuilderProvider;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(path= "/books")
@@ -34,6 +32,15 @@ public class BookController {
         return bookService.addBook(title, author, isbn);
     }
 
+    @GetMapping(path= "/edit")
+    public String editBook(@RequestParam Integer bookId, @RequestParam(required=false) String title, @RequestParam(required=false) String author, @RequestParam(required=false) String isbn)
+            throws Exception {
+        if(title!=null) { bookService.editBookTitle(bookId, title); }
+        if(author!=null) { bookService.editBookAuthor(bookId, author); }
+        if(isbn!=null) { bookService.editBookIsbn(bookId, isbn); }
+        return "Book edited";
+    }
+
     @GetMapping(path= "/delete")
     public String deleteBook(@RequestParam Integer bookId) {
         return bookService.deleteBook(bookId);
@@ -42,5 +49,10 @@ public class BookController {
      @GetMapping(path = "/all")
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
+     }
+
+     @GetMapping(path = "/available")
+    public List<Book> getAvailableBooks() {
+        return bookService.getAvailableBooks();
      }
 }
