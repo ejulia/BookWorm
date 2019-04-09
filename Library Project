@@ -1,0 +1,72 @@
+* Rôles à attribuer :
+- Développeur : moi
+- Testeur : ?
+- Client : Antoine ?
+
+* Objectif du projet :
+Créer une application web permettant de gérer les données d'une bibliothèque : ouvrages, utilisateurs et emprunts. 
+
+
+* Cahier des charges :
+- Chaque utilisateur peut emprunter jusqu'à 3 livres.
+- En cas de dépassement d'échéance, une alerte est créée qui indique le nombre de jorus restant avant bloquage du compte.
+- En cas de dépassement d'échéance de 7 jours, l'utilisateur est bloqué (= emprunt bloqué)
+- Une transaction décrit l'emprunt et le retour d'un livre. En l'absence de date de retour, cela signifie que le livre est actuellement emprunté.
+
+
+* Fonctionnalités :
+- Utilisateur : Rechercher, Ajouter, Retirer
+- Ouvrage : Rechercher, Ajouter, Retirer, Emprunter, Retourner
+- Alertes : Alerte retard, bloquage utilisateur 
+
+
+* Etapes d'implémentation
+>>> Squelette du projet
+- Création du projet avec page de bienvenue
+- Compréhension des différents éléments du projet
+>>> Liste d'ouvrages
+- Mise en place database
+- Table ouvrages
+- Recherche d'ouvrages dans la table
+- Ajouter / retirer un ouvrage
+>>> Utilisateurs
+- Table utilisateurs
+- Rechercher/Ajouter/Retirer
+>>> Transactions
+- Table transactions
+- Emprunter / Retourner
+- Afficher transactions
+>>> Alertes
+- Afficher alertes
+
+
+
+* Outils pour le projet :
+- Langage : Java
+- Framework : Spring boot (Gradle)
+- Base de données : postgreSQL
+
+
+* Tâches utilisateur dans le projet :
+>>> Livres
+- Recherche d'ouvrage : titre, auteur
+- Ajout / suppression de livre
+- Emprunt de livre
+>>> Utilisateurs
+- Données perso : nom, prénom, téléphone
+- Ajout user / retrait / blocage
+- Afficher livres empruntés avec échéance
+>>> Gestion
+- Système d'alertes sur les échéances
+
+
+* Proposition de structure de database :
+>>> Livres
+- Titre, auteur, ISBN
+>>> Utilisateurs
+- Nom, prénom, téléphone
+>>> Transactions
+-> Date emprunt
+-> Date retour
+
+
