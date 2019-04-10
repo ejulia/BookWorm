@@ -29,6 +29,7 @@ sudo usermod –a –G docker <user>
 					  Ajouter le paramètre --rm pour un remove dès l'exit
 - Afficher les conteeurs créés : sudo docker ps (ajouter -a pour voir les conteneurs stopped)
 - Identifier l'IP du conteneur : sudo docker inspect <nom/id> (info devant IPAddress)
+- Identifier le port utilisé par le conteneur : même commande, info devant Ports
 
 
 #3- Instructions Docker :
