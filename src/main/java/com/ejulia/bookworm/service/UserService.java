@@ -4,6 +4,7 @@ import com.ejulia.bookworm.entity.User;
 import com.ejulia.bookworm.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     public String addUser(String firstName, String lastName, String phone, String email) {
         User n = new User();
         n.setFirstName(firstName);
@@ -26,53 +28,41 @@ public class UserService {
         return "User registered";
     }
 
+    @Transactional
     public String deleteUser(Integer userId)  {
         userRepository.deleteById(userId);
         return "User deleted";
     }
 
+    @Transactional(readOnly = true)
     public Optional<User> getUser(Integer userId) {
         return userRepository.findById(userId);
     }
 
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-
+    @Transactional(readOnly = true)
     public List<User> getByFirstName(String firstName) {
         return userRepository.findByFirstNameContaining(firstName);
     }
 
+    @Transactional(readOnly = true)
     public List<User> getByLastName(String lastName) {
         return userRepository.findByLastNameContaining(lastName);
     }
 
-    public void editUserFirstName(Integer userId, String firstName) throws Exception {
+    @Transactional
+    public String editUser(Integer userId, String firstName, String lastName, String phone, String email) throws Exception {
         Optional<User> optionalUser = userRepository.findById(userId);
-        User user = optionalUser.orElseThrow(() -> new Exception("User not found"));
-        user.setFirstName(firstName);
+        User user = optionalUser.orElseThrow(() -> new Exception("user not found"));
+        if (!firstName.isEmpty()) { user.setFirstName(firstName); }
+        if (!lastName.isEmpty()) { user.setLastName(lastName); }
+        if (!phone.isEmpty()) { user.setPhone(phone); }
+        if (!email.isEmpty()) { user.setEmail(email); }
         userRepository.save(user);
-    }
-
-    public void editUserLastName(Integer userId, String lastName) throws Exception {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        User user = optionalUser.orElseThrow(() -> new Exception("User not found"));
-        user.setLastName(lastName);
-        userRepository.save(user);
-    }
-
-    public void editUserPhone(Integer userId, String phone) throws Exception {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        User user = optionalUser.orElseThrow(() -> new Exception("User not found"));
-        user.setPhone(phone);
-        userRepository.save(user);
-    }
-
-    public void editUserEmail(Integer userId, String email) throws Exception {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        User user = optionalUser.orElseThrow(() -> new Exception("User not found"));
-        user.setEmail(email);
-        userRepository.save(user);
+        return "User edited";
     }
 }

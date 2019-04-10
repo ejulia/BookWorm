@@ -8,7 +8,8 @@ public class Loan {
 
     @Id
     @GeneratedValue(generator = "increment")
-    private Long loanId;
+    @Column(updatable = false, nullable = false)    // There is probably an overlap between those parameters and @Id
+    private Integer loanId;
 
     @ManyToOne
     @JoinColumn(name = "user")
@@ -18,14 +19,17 @@ public class Loan {
     @JoinColumn(name = "book")
     private Book book;
 
+    @Column
     private LocalDateTime rentTime;
+
+    @Column
     private LocalDateTime returnTime;
 
-    public Long getLoanId() {
+    public Integer getLoanId() {
         return loanId;
     }
 
-    public void setLoanId(Long loanId) {
+    public void setLoanId(Integer loanId) {
         this.loanId = loanId;
     }
 

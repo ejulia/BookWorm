@@ -46,10 +46,6 @@ public class UserController {
     @GetMapping(path = "/edit")
     public String editUser(@RequestParam Integer userId, @RequestParam(required=false) String firstName, @RequestParam(required=false) String lastName,
             @RequestParam(required=false) String phone, @RequestParam(required=false) String email) throws Exception {
-        if (firstName!="") { userService.editUserFirstName(userId, firstName); }
-        if (lastName!="") { userService.editUserLastName(userId, lastName); }
-        if (phone!="") { userService.editUserPhone(userId, phone); }
-        if (email!="") { userService.editUserEmail(userId, email); }
-        return "User edited";
+        return userService.editUser(userId, firstName, lastName, phone, email);
     }
 }
