@@ -37,8 +37,9 @@ public class BookService {
     }
 
     @Transactional(readOnly=true)
-    public Optional<Book> getBook(Integer bookId) {
-        return bookRepository.findById(bookId);
+    public Book getBook(Integer bookId) throws Exception {
+        Optional<Book> optionalBook = bookRepository.findById(bookId);
+        return optionalBook.orElseThrow(() -> new Exception("Book not found in database"));
     }
 
     @Transactional(readOnly = true)
